@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#123c2b"><meta name="description" content="YK Eggs invoice generator. Create, save, print and share customer invoices.">
+  <link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/icon-192.png"><link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="stylesheet" href="styles.css"><title>YK Eggs | Invoice Studio</title>
+</head>
+<body>
+<header class="topbar"><div class="brand"><img src="./assets/yk-eggs-logo.png" alt="YK Eggs logo"><div><strong>YK EGGS</strong><span>INVOICE STUDIO</span></div></div><button id="installBtn" class="button button-outline hidden">Install App</button></header>
+<main class="shell">
+  <section class="intro"><div><p class="eyebrow">BUSINESS MANAGEMENT</p><h1>Invoice Studio</h1><p class="muted">Create polished invoices, keep your records and share PDFs with customers.</p></div><div class="storage-pill"><i></i> Saved on this device</div></section>
+  <nav class="tabs" aria-label="Main navigation"><button class="tab active" data-tab="create">New invoice</button><button class="tab" data-tab="history">Invoice history <b id="historyCount">0</b></button></nav>
+  <section id="createView" class="view">
+    <form id="invoiceForm" autocomplete="on">
+      <div class="panel"><div class="panel-heading"><div><p class="eyebrow">01 / CUSTOMER</p><h2>Customer details</h2></div><span class="step-icon">01</span></div>
+        <div class="grid two"><label>Customer name<input id="customerName" required placeholder="e.g. John Doe"></label><label>Phone number<input id="customerPhone" inputmode="tel" placeholder="e.g. 07xx xxx xxx"></label><label class="full">Customer address<input id="customerAddress" placeholder="Town / delivery address"></label></div>
+      </div>
+      <div class="panel"><div class="panel-heading"><div><p class="eyebrow">02 / INVOICE</p><h2>Invoice information</h2></div><span class="step-icon">02</span></div>
+        <div class="grid two"><label>Invoice number<input id="invoiceNumber" readonly></label><label>Invoice date<input id="invoiceDate" type="date" required></label><label>Due date<input id="dueDate" type="date"></label><label>Payment status<select id="paymentStatus"><option value="Unpaid">Unpaid</option><option value="Partially paid">Partially paid</option><option value="Paid">Paid</option></select></label></div>
+      </div>
+      <div class="panel"><div class="panel-heading"><div><p class="eyebrow">03 / ITEMS</p><h2>Products & services</h2></div><span class="step-icon">03</span></div>
+        <div id="itemsWrap" class="items-wrap"></div><button type="button" id="addItem" class="button button-soft">＋ Add another item</button>
+        <div class="totals"><div><span>Subtotal</span><strong id="subtotalText">UGX 0</strong></div><div class="discount-row"><label for="discount">Discount (UGX)</label><input id="discount" type="number" min="0" step="1" value="0"></div><div><span>Grand total</span><strong id="totalText" class="grand">UGX 0</strong></div><div class="paid-row"><label for="amountPaid">Amount paid (UGX)</label><input id="amountPaid" type="number" min="0" step="1" value="0"></div><div><span>Balance due</span><strong id="balanceText">UGX 0</strong></div></div>
+      </div>
+      <div class="panel"><div class="panel-heading"><div><p class="eyebrow">04 / NOTES</p><h2>Additional information</h2></div><span class="step-icon">04</span></div><label>Notes / payment instructions<textarea id="notes" rows="3" placeholder="Thank you for your business!"></textarea></label></div>
+      <div class="form-actions"><button type="submit" class="button button-primary">Save invoice</button><button type="button" id="previewBtn" class="button button-outline">Preview</button><button type="reset" id="resetBtn" class="button button-quiet">Clear form</button></div>
+    </form>
+  </section>
+  <section id="historyView" class="view hidden"><div class="panel"><div class="history-head"><div><p class="eyebrow">YOUR RECORDS</p><h2>Saved invoices</h2><p class="muted">Stored privately in this browser on this device.</p></div><div class="history-tools"><button id="exportBtn" class="button button-soft">Backup</button><label class="button button-soft file-label">Restore<input type="file" id="importFile" accept="application/json"></label></div></div><input id="historySearch" class="search" placeholder="Search invoice number or customer…"><div id="historyList" class="history-list"></div></div></section>
+  <footer><span>YK EGGS</span><span>Fresh • Quality • Healthy</span><small>Invoices are saved locally on this device. Export backups regularly.</small></footer>
+</main>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<dialog id="previewDialog" class="preview-dialog"><div class="dialog-head"><strong>Invoice preview</strong><button class="icon-button" id="closePreview" aria-label="Close">×</button></div><div id="previewContent" class="preview-content"></div><div class="dialog-actions"><button id="previewPdf" class="button button-primary">Download / Share PDF</button><button id="previewPrint" class="button button-outline">Print</button></div></dialog>
+<script src="app.js"></script>
+</body></html>
